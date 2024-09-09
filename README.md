@@ -14,7 +14,7 @@
 <summary>Click for more detail</summary>
 <br>
 
-### 1. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial). 
+### 1️⃣ Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial). 
 Tema Project ini adalah toko adopsi kucing menggunakan Django Framework
 
 #### ✅ Membuat sebuah proyek Django baru:
@@ -137,7 +137,7 @@ class MeowEntry(models.Model):
 - lihat project di PWS dan tunggu hingga build selesai.
 - Jika build selesai, lihat dan bagikan project ke teman-teman untuk dilihat 😺 
 
-#### 2️⃣ Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
+### 2️⃣ Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
 ![](img/PBBdrawio.png)
 
  + User akan menuliskan suatu permintaan ke browser yang kemudian akan diteruskan oleh internet.
@@ -148,41 +148,46 @@ class MeowEntry(models.Model):
  + `views.py` juga akan meminta ke template untuk tampilan utama yang akan dilihat pengguna
  + terakhir, `views.py` membangun bentuk akhir aplikasi untuk dikembalikan ke pengguna
 
-#### 3️⃣ Jelaskan mengapa kita menggunakan virtual environment? Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment?
+### 3️⃣ Jelaskan fungsi git dalam pengembangan perangkat lunak!
+  git berperan penting sebagai version control dan collaborative tool yang memungkinkan pengembangan perangkat lunak besar yang terstruktur. Sebelum adanya git, setiap pengembang harus memberi source code program ke pengembang yang lain yang ingin ikut mengembangkan perangkat lunak yang sama. pada saat yang sama, pengembang yang lain tidak bisa mengubah source code itu sesukanya tanpa kemungkinan terjadinya konflik dengan pengembang yang lain sehingga pengembangan menjadi lambat dan error-prone.
+  
+  Dengan git, pengembangan menjadi jauh lebih terstruktur dengan fitur fitur utama yang ditawari git yaitu:
 
-Virtual environment memungkinkan kita sebagai pengguna untuk mengisolasi dependensi setiap proyek Python di sistem kita. Dalam pengembangan aplikasi berbasis Django, proyek yang berbeda mungkin memerlukan versi paket yang berbeda, seperti Django atau library lainnya. Dengan virtual environment, setiap proyek memiliki lingkungan independen sehingga perubahan pada satu proyek tidak akan memengaruhi proyek lain. Hal ini juga memudahkan pengelolaan dependensi dan menjaga konsistensi antar proyek, baik saat mengerjakan sendiri atau bersama dengan rekan tim.
+  + Track History: pengembang dapat melihat sejarah pengembangannya
+  + Backup: pengembang dapat kembali ke versi kode yang sudah di simpan di git jika terjadi masalah dengan kode saat ini
+  + Collaborative Development: beberapa pengembang dapat bekerja pada satu proyek yang sama di waktu yang sama dengan tools tambahan seperti github yang memungkinkan git untuk terhubung ke internet.
+  + Branching: saat pengembangan suatu fitur selesai, fitur tersebut dapat di-integrasikan dengan kode utama dengan fitur branch merge. fitur ini juga membuat kode utama tidak berubah saat pengembangan fitur lainnya.
 
-Meskipun aplikasi Django dapat dibuat tanpa menggunakan virtual environment, hal ini cukup tidak disarankan. Menginstal paket secara global di sistem dapat menyebabkan konflik versi dan kesulitan dalam manajemen proyek, terutama jika kita bekerja pada beberapa proyek dengan dependensi yang berbeda. Dependensi itu bisa saja sudah tidak didukung di versi python tertentu, atau diperbarui sehingga tidak dapat digunakan lagi. Tanpa virtual environment, ada risiko salahnya versi dependensi yang bisa menyebabkan aplikasi tidak berfungsi dengan benar. Jadi, meskipun bisa dilakukan tanpa virtual environment, penggunaan virtual environment sangat disarankan dan sudah menjadi standar dimana-mana.
-
-#### 4️⃣ Jelaskan apakah itu MVC, MVT, MVVM dan perbedaan dari ketiganya!
-Jawab:  
-Ketiga istilah adalah sebuah bentuk pattern arsitektur yang biasa digunakan dalam membangun perangkat lunak. Penggunaan pattern arsitektur yang baik akan menciptakan modularitas yang baik dalam menyatukan kerangka perangkat lunak.
-- MVC(Model-View-Controller)
-- MVT(Model-View-Template)
-- MVVM(Model-View-ViewModel)
+  Masih banyak fitur yang git tawarkan untuk memudahkan proses pengembangan perangkat lunak. Oleh karena beberapa alasan tersebut, git menjadi standar industri dalam pengembangan perangkat lunak.
 
 
-### 1. **MVC (Model-View-Controller)**:
-   - **Model**: Berisi data dan logika bisnis, seperti database dan struktur data.
-   - **View**: Mengontrol tampilan antarmuka pengguna, menampilkan data dari model.
-   - **Controller**: Mengatur interaksi antara Model dan View, menangani input pengguna dan mengirim data ke Model atau View.
-   - **Contoh**: Umum dalam banyak framework seperti Ruby on Rails dan Laravel.
+### 4️⃣ Menurut Anda, dari semua framework yang ada, mengapa framework Django dijadikan permulaan pembelajaran pengembangan perangkat lunak?
+  Menurut saya, alasan utama kenapa Django dijadikan pembelajaran utama dibanding framework lain adalah karena prinsip yang ada di Django itu sendiri yaitu RAPID DEVELOPMENT.
 
-### 2. **MVT (Model-View-Template)**:
-   - **Model**: Sama seperti di MVC, berfungsi untuk menangani data dan logika bisnis.
-   - **View**: Mengambil data dari Model dan menentukan respons yang akan dikirim ke pengguna.
-   - **Template**: Berfungsi sebagai lapisan presentasi, seperti HTML, CSS, untuk menampilkan data ke pengguna.
-   - **Contoh**: Digunakan oleh **Django**, dengan `View` yang lebih fokus pada logika, dan `Template` yang menangani tampilan.
+  Di Django sendiri, prinsip rapid development ini ada dalam bentuk fitur dan kemampuan yang diberikan django ke para  yang sangat lengkap. misalnya, Django hadir dengan banyak fitur web development utama yang sering digunakan pengembang sehingga kita tidak perlu membuat kode-kode sederhana sehingga membuat proses pengembangan lebih berfokus kepada hasil akhir.
 
-### 3. **MVVM (Model-View-ViewModel)**:
-   - **Model**: Sama seperti di MVC, mengelola data dan logika bisnis.
-   - **View**: Berfungsi untuk menampilkan antarmuka pengguna.
-   - **ViewModel**: Mengikat `Model` dan `View`, berisi logika presentasi dan memformat data sebelum ditampilkan pada View.
-   - **Contoh**: Banyak digunakan dalam framework frontend seperti **Angular** dan **WPF** di .NET.
+  Beberapa fitur utama lainnya yang menjadikan Django sebagai permulaan pembelajaran adalah:
 
-### **Perbedaan Utama**:
-- **MVC**: Menggunakan `Controller` untuk mengatur logika antar `Model` dan `View`.
-- **MVT**: Mengganti `Controller` dengan `View` yang menangani respons, dan menggunakan `Template` untuk presentasi.
-- **MVVM**: Menggunakan `ViewModel` untuk memisahkan logika presentasi dari `View`, memungkinkan binding data yang lebih reaktif antara `Model` dan `View`.
+  + ORM, atau object relational model yang memberikan pengembang cara mudah untuk melaksanakan CRUD(Create, Retrive, Update, Delete) pada database setelah model dibuat.
+  + Database Migration, saat struktur database perlu diubah, django membuatnya sangat mudah bagi pengembang
+  + MVT, dengan MVT, django menggunakan sistem antarmuka yang intuitif dan mengedepankan pengembangan terstruktur.
+  + Powerfull Routing, Django menyediakan alat routing yang mudah, dengan dynamic URLS. 
+  + Essentials built-in, fitur seperti admin, autentikasi, users sudah ada di Django sehingga pengembang dapat fokus ke logic utama aplikasinya
+
+Dari beberapa alasan tersebut, dapat disimpulkan bahwa Django adalah framework yang tepat sebagai alat pembelajaran pertama.
+
+### 5️⃣ Mengapa model pada Django disebut sebagai ORM?
+Di Django, kita dapat berinteraksi dengan database melalui objek objek yang kita buat dibanding menulis query SQL khusus untuk setiap perintah ke database.
+
+Dalam Django, model adalah representasi dari tabel dalam database, dan setiap field dalam model merepresentasikan kolom dalam tabel. ORM ini membantu mengelola dan memanipulasi data dalam database dengan menggunakan method di Python tanpa perlu menulis SQL secara manual.
+fitur yang ada pada ORM meliputi
+
++ Mapping antara Objek dan Database, Kelas model Django dihubungkan ke tabel database, di mana setiap instance dari model merepresentasikan satu baris data di database.
+
++ CRUD Operations, Django ORM menyediakan cara mudah untuk melakukan operasi CRUD (Create, Read, Update, Delete) dengan cara Pythonik seperti Model.objects.create(), Model.objects.filter(), dan Model.objects.delete().
+
++ Abstraksi Database, ORM memungkinkan untuk menggunakan berbagai database (MySQL, PostgreSQL, SQLite, dll.) tanpa perlu mengubah kode Python, cukup mengubah konfigurasi database.
+
+karena interaksi antara database dan model object inilah django disebut sebagai ORM.
 
 </details>
