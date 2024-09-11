@@ -138,7 +138,7 @@ class MeowEntry(models.Model):
 - Jika build selesai, lihat dan bagikan project ke teman-teman untuk dilihat 😺 
 
 ### 2️⃣ Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.
-![](img/PBBdrawio.png)
+![](/img/PBPdrawio.png)
 
  + User akan menuliskan suatu permintaan ke browser yang kemudian akan diteruskan oleh internet.
  + Klien (browser) mengirim permintaan HTTP ke alamat project kita.

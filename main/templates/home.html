@@ -1,6 +1,38 @@
-<h1>Meowpedia</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Meowpedia</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <main>
+        <div> 
+            <h1>Meowpedia</h1>
+            <h4>NPM: {{ context.npm }}</h5>
+            <h4>Nama: {{ context.name }}</h5>
+            <h4>Kelas: {{ context.class }}</h5>
+        <div>
+        </div>
+            <h2>Cat talog</h2>
+            <h4>Name: {{ cats.name }}</h5>
+            <h4>price: {{ cats.price }}</h5>
+            <h4>description: {{ cats.description }}</h5>
+            <h4>species: {{ cats.species }}</h5>
+            <h4>colour: {{ cats.colour }}</h5>
+            <h4>age: {{ cats.age }}</h5>
+        </div>
+    </main>
+    <script src="index.js"></script>
+  </body>
+</html>
 
-<h4>NPM: {{ npm }}</h5>
-<h4>Nama: {{ name }}</h5>
-<h4>Kelas: {{ class }}</h5>
+
+
+
+
+
 

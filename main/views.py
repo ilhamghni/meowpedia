@@ -9,4 +9,14 @@ def show_home(request):
         'class': 'PBP E'
     }
 
-    return render(request, "home.html", context)
+    cats = {
+        'name' : 'kitty',
+        'price' : '$20,000',
+        'description' : 'fluffy and playfull, does ot like being alone',
+        'species' : 'arabian knight',
+        'colour' : 'golden brown',
+        'age' : '10 year old',
+    }
+
+    return render(request, "home.html", {'context' : context, 'cats' : cats})
+
