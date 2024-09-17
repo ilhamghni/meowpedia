@@ -18,23 +18,88 @@
 Pada tugas ini, Saya akan menjalankan implementasi konsep data delivery serta menerapkan beberapa konsep yang telah dipelajari selama sesi tutorial.
 
 ## Checklist Tugas
-### ✅ Membuat input form untuk menambahkan objek model pada app sebelumnya.
+#### ✅ Membuat input form untuk menambahkan objek model pada app sebelumnya.
+- Membuat folder templates yang berisi base.html pada root folder dan menambahkannya pada `settings.py`.
+  `base.html` ini akan menjadi template html project ini untuk kedepannya
+- Melengkapi kerangka yang terdapat pada `base.html` untuk kebutuhan aplikasi main berupa atribut form untuk menerima input user dan mendisplay hasil dari input tersebut.
+- Membuat file baru bernama `forms.py`. File ini akan berperan sebagai struktur form yang dapat menerima input data oleh user.
 
-### ✅  Tambahkan 4 fungsi views baru untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML by ID, dan JSON by ID.
+#### ✅  Tambahkan 4 fungsi views baru untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML by ID, dan JSON by ID.
+- Fungsi dalam format XML dan JSON menambahkan variable yang menyimpan objects pada item dan mereturn HttpResponse  yang isi parameternya adalah objects yang diserialisasi.
+- Fungsi XML by ID dan JSON by ID sama implementasinya dengan XML dan JSON biasa namun untuk variable yang menyimpan objects menggunakan filter `(pk=id)` sehingga dapat diurutkan berdasarkan input. Berikut adalah kodenya
+``` python
+def show_xml(request):
+    data = CatEntry.objects.all()
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
 
-### ✅ Membuat routing URL untuk masing-masing views yang telah ditambahkan pada poin 2.
+def show_json(request):
+    data = CatEntry.objects.all()
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
 
-### ✅ Menjawab beberapa pertanyaan berikut pada README.md pada root folder.
+def show_xml_by_id(request, id):
+    data = CatEntry.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+def show_json_by_id(request, id):
+    data = CatEntry.objects.filter(pk=id)
+    return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+```
+
+#### ✅ Membuat routing URL untuk masing-masing views yang telah ditambahkan pada poin 2.
+- Pada urls.py, tambahkan beberapa import terhadap setiap fungsi yang terdapat pada views.
+  ``` python
+  from main.views import show_home, create_cat_entry, show_xml, show_json, show_xml_by_id, show_json_by_id
+  ```
+- Untuk fungsi create_cat_entry, XML, dan JSON tambahkan path yang sesuai.
+```python
+  path('create-cat-entry', create_cat_entry, name='create_cat_entry'),
+  path('xml/', show_xml, name='show_xml'),
+  path('json/', show_json, name='show_json'),
+```
+- Untuk fungsi XML by ID dan JSON by ID path ditambahkan `<str:id>` untuk mendapatkan data sesuai dengan id
+```python
+  path('xml/<str:id>/', show_xml_by_id, name='show_xml_by_id'),
+  path('json/<str:id>/', show_json_by_id, name='show_json_by_id'),
+```
+
+#### ✅ Menjawab beberapa pertanyaan berikut pada README.md pada root folder.
 
   - #### 1️⃣ Jelaskan mengapa kita memerlukan data delivery dalam - pengimplementasian sebuah platform?.
-  -  #### 2️⃣ Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?
+    Secara umum, dalam pengembangan platform di Django atau bahasa lainnya, data delivery adalah proses pengiriman data antara server (backend) dan client (frontend) atau bahkan antar server. Django sendiri memerlukan mekanisme ini karena beberapa hal seperti:
+
+    - Komunikasi Client-Server: Pengguna berinteraksi melalui frontend, yang kemudian membutuhkan data dari backend untuk menampilkan informasi atau melakukan pemrosesan lebih lanjut.
+    - Integrasi API: Jika platform membutuhkan integrasi API, misalnya REST API atau GraphQL, data delivery memungkinkan pengiriman dan penerimaan data dengan cara yang terstruktur.
+    - Dynamic Web Pages: Untuk halaman-halaman dinamis yang sering berubah atau membutuhkan pemuatan data secara real-time, seperti dashboard atau feed, data delivery dibutuhkan untuk menjaga sinkronisasi antara frontend dan backend.
+    - Keamanan: Data delivery juga memungkinkan penyaringan dan pengelolaan data yang masuk dari client, misalnya melalui form submission, agar sesuai dengan aturan keamanan platform.
+  -  #### 2️⃣ Menurutmu, mana yang lebih baik antara XML dan JSON? Mengapa JSON lebih populer dibandingkan XML?.
+      Jika dilihat dari penggunaannya, `JSON` lebih banyak digunakan dan populer dibandingkan `XML` dalam pengiriman data, terutama dalam aplikasi web. Tetapi JSON tidak serta merta mengantikan XML sebagai format pengiriman data melainkan memberi alternatif yang lebih baik walaupun XML masih memiliki kegunaannya. Oleh karena itu, JSON mungkin lebih baik untuk kebanyakan penggunaan, tetapi tidak semua. Beberapa alasan mengapa JSON lebih populer dibanding XML ada beberapa alasan yaitu:
+
+      - Lebih Ringan: JSON memiliki sintaks yang lebih sederhana dan pendek dibanding XML yang banyak di isi oleh Tag, sehingga ukuran data lebih kecil dibandingkan XML yang menggunakan banyak tag.
+      - Human Readable: Sintaks JSON lebih mirip dengan objek JavaScript, membuatnya lebih mudah dibaca dan dipahami oleh manusia serta developer. selain itu JSON juga dirancang untuk bekerja dengan baik dalam JavaScript, sehingga ideal untuk aplikasi web modern yang umumnya menggunakan JavaScript di frontend.
+      - Parsing Lebih Cepat: Parsing JSON cenderung lebih cepat dibandingkan XML karena JSON langsung mendukung format yang dipakai oleh kebanyakan bahasa pemrograman tanpa perlu tambahan konversi.
+  
+      Namun, XML tetap memiliki tempat dalam aplikasi tertentu, terutama yang membutuhkan struktur dokumen kompleks atau data dengan skema yang ketat.
+
+
   - #### Jelaskan fungsi dari method is_valid() pada form Django dan mengapa kita membutuhkan method tersebut?
+    Dalam Django, method `is_valid()` digunakan untuk memvalidasi data yang dikirim melalui form dengan memeriksa apakah data memenuhi kriteria seperti tipe data, panjang teks, atau aturan khusus lainnya yang kita berikan. Jika data tidak valid, Django secara otomatis mengisi atribut `errors` pada form sehingga pengembang dapat memberikan feedback kepada pengguna mengenai kesalahan input. Selain itu, `is_valid()`juga memastikan bahwa hanya data yang aman dan valid yang diproses atau disimpan ke dalam database, menjaga  keamanan aplikasi.
+
   - #### 3️⃣ Mengapa kita membutuhkan csrf_token saat membuat form di Django? Apa yang dapat terjadi jika kita tidak menambahkan csrf_token pada form Django? Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+    csrf_token (Cross-Site Request Forgery token) adalah token keamanan yang digunakan dalam Django untuk mencegah serangan Cross-Site Request Forgery (CSRF). CSRF adalah jenis serangan di mana penyerang memanfaatkan sesi pengguna yang sudah diautentikasi untuk melakukan tindakan berbahaya di situs tanpa sepengetahuan mereka.
+
+    Jika kita tidak menambahkan csrf_token pada form Django, situs kita rentan terhadap serangan CSRF, di mana penyerang bisa memanipulasi pengguna untuk mengirimkan permintaan yang tidak sah ke server, seperti mengubah data pengguna tanpa izin, melakukan transaksi atau aksi yang berbahaya atas nama pengguna, dan masih banyak lagi.
+
+    #### Bagaimana hal tersebut dapat dimanfaatkan oleh penyerang?
+    Penyerang bisa membuat sebuah situs palsu atau mengirimkan email yang mengandung form tersembunyi yang melakukan aksi ke server kita. Jika pengguna mengklik tautan atau membuka halaman tersebut dan mereka sudah login ke situs kita, browser mereka akan mengirimkan request tanpa disadari pengguna, membuat serangan itu berhasil.
+
+    Menggunakan csrf_token memastikan bahwa request hanya valid jika berasal dari form yang dibuat oleh server, karena token tersebut unik untuk setiap sesi dan request, sehingga serangan ini dapat dicegah.
+
+
   - #### 4️⃣ Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
-### ✅ Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.
+#### ✅ Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.
 
-### ✅  Melakukan add-commit-push ke GitHub.
+#### ✅  Melakukan add-commit-push ke GitHub.
 
 </details>
 

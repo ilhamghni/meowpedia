@@ -7,21 +7,22 @@ from django.core import serializers
 
 def show_home(request):
     cat_entries = CatEntry.objects.all()
+    
     context = {
         'npm' : '2306201792',
         'name': 'Ilham Ghani Adrin Sapta',
         'class': 'PBP E',
-        'cat_available' : cat_entries
+        'cat_entries': cat_entries
     }
 
-    return render(request, "home.html", {'context' : context})
+    return render(request, "home.html", context)
 
 def create_cat_entry(request):
     form = CatEntryForm(request.POST or None)
 
     if form.is_valid() and request.method == "POST":
         form.save()
-        return redirect('home:show_home')
+        return redirect('main:show_home')
 
     context = {'form': form}
     return render(request, "create_cat_entry.html", context)
