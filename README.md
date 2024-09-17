@@ -98,6 +98,14 @@ def show_json_by_id(request, id):
   - #### 4️⃣ Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
 #### ✅ Mengakses keempat URL di poin 2 menggunakan Postman, membuat screenshot dari hasil akses URL pada Postman, dan menambahkannya ke dalam README.md.
+### Mengakses XML
+![](/img/XML.png)
+### Mengakses JSON
+![](/img/JSON.png)
+### Mengakses XML dengan ID tertentu
+![](/img/XML_by_ID.png)
+### Mengakses JSON dengan ID tertentu
+![](/img/JSON_by_ID.png)
 
 #### ✅  Melakukan add-commit-push ke GitHub.
 
