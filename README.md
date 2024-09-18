@@ -22,7 +22,16 @@ Pada tugas ini, Saya akan menjalankan implementasi konsep data delivery serta me
 - Membuat folder templates yang berisi base.html pada root folder dan menambahkannya pada `settings.py`.
   `base.html` ini akan menjadi template html project ini untuk kedepannya
 - Melengkapi kerangka yang terdapat pada `base.html` untuk kebutuhan aplikasi main berupa atribut form untuk menerima input user dan mendisplay hasil dari input tersebut.
-- Membuat file baru bernama `forms.py`. File ini akan berperan sebagai struktur form yang dapat menerima input data oleh user.
+- Membuat file baru bernama `forms.py`. File ini akan berperan sebagai struktur form yang dapat menerima input data oleh user, berikut adalah isi dai `forms.py`.
+```python
+from django.forms import ModelForm
+from main.models import CatEntry
+
+class CatEntryForm(ModelForm):
+    class Meta:
+        model = CatEntry
+        fields = ["name", "price", "age", "description", "species", "colour"]
+```
 
 #### ✅  Tambahkan 4 fungsi views baru untuk melihat objek yang sudah ditambahkan dalam format XML, JSON, XML by ID, dan JSON by ID.
 - Fungsi dalam format XML dan JSON menambahkan variable yang menyimpan objects pada item dan mereturn HttpResponse  yang isi parameternya adalah objects yang diserialisasi.
