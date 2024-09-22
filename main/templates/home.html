@@ -42,6 +42,11 @@
     <a href="{% url 'main:create_cat_entry' %}">
       <button>Add New Cat</button>
     </a>
+    <a href="{% url 'main:logout' %}">
+      <button>Logout</button>
+      <h5>Sesi terakhir login: {{ last_login }}</h5>
+    </a>
+    
 </div>
 
 {% endblock content %}
