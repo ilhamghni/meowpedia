@@ -3,12 +3,12 @@
 ## MeowPedia  😽😽
 ### Nama : Ilham Ghani Adrin Sapta
 ### NPM  : 2306201792
-### Link : http://ilham-ghani-meowpedia.pbp.cs.ui.ac.id/ (Status: Offline)
+### Link : http://ilham-ghani-meowpedia.pbp.cs.ui.ac.id/ (Status: Online)
 ---
 
 
 
-# Tugas 4: Implementasi Form dan Data Delivery pada Django
+# Tugas 4: Implementasi Autentikasi, Session, dan Cookies pada Django
 
 
 <details>
@@ -154,26 +154,29 @@ def show_home(request):
 
 #### ✅ Menjawab beberapa pertanyaan berikut pada README.md pada root folder.
 
-  - #### 1️⃣ Apa itu Django UserCreationForm, dan jelaskan apa kelebihan dan kekurangannya?.
-    Django UserCreationForm adalah form bawaan yang disediakan oleh django untuk membuat pengguna baru dengan nama pengguna dan password di aplikasi django. UserCreationForm sendiri memiliki beberapa kelebihan, salah satunya adalah kemudahan penggunaan, pengembang tidak perlu membuat sistem autentikasi baru dari awal karena django menyediakan keamanan melalui enkripsi password serta validasi otomatis untuk memastikan password memenuhi standar tertentu. Selain itu, form ini dapat disesuaikan jika diperlukan, memungkinkan pengembang untuk menambah field atau logika validasi tambahan sesuai kebutuhan aplikasi.
+  - #### 1️⃣ Apa perbedaan antara HttpResponseRedirect() dan redirect()
+  `HttpResponseRedirect()` adalah kelas Django yang secara eksplisit membuat respons HTTP dengan kode status 302 (redirect) dan URL tujuan. Sementara itu, `redirect()` adalah fungsi bawaan Django yang mempermudah proses pengalihan (redirect) dengan menerima argumen seperti URL, view name, atau objek model dan secara otomatis menghasilkan `HttpResponseRedirect()` di balik layar.
 
-    Namun UserCreationForm juga memiliki kelemahannya sendiri, salah satu yang paling besar adalah karena hanya mendukung pembuatan user dengan username dan password secara default. Untuk aplikasi yang membutuhkan autentikasi berbasis email atau profil pengguna yang lebih kompleks, form ini harus disesuaikan. Selain itu, form standar ini sederhana dan mungkin memerlukan penyesuaian pada desain dan UI untuk tampilan yang lebih responsif dan menarik.
-    
-  - #### 2️⃣ Apa perbedaan antara autentikasi dan otorisasi dalam konteks Django, dan mengapa keduanya penting?.
-    Dalam django, autentikasi dan otorisasi memiliki beberapa perbedaan mulai dari fungsionalitas dan tujuannya, dimulai dari Authentikasi. Autentikasi adalah proses untuk memverifikasi identitas pengguna. Ini memastikan bahwa  pengguna yang mencoba mengakses aplikasi adalah pengguna yang terdaftar dan dapat dipercaya. Di Django, autentikasi biasanya melibatkan pengecekan kredensial seperti nama pengguna dan password melalui sistem autentikasi bawaan Django. Contoh umum adalah proses login, dimana pengguna harus memasukkan username dan password yang valid.
+  Jadi, perbedan utama terletak dimana `HttpResponseRedirect()` mengharuskan URL penuh sebagai argumen, sedangkan `redirect()` lebih fleksibel dan menangani detail pembuatan respons redirect.
 
-    Otorisasi adalah proses untuk menentukan apa yang diizinkan dilakukan oleh pengguna yang sudah terautentikasi. Setelah pengguna berhasil terautentikasi, Django akan menentukan akses atau hak apa yang dimiliki oleh pengguna tersebut, misalnya apakah pengguna boleh melihat halaman admin, mengedit data, atau mengakses fitur tertentu
-    .
-  - #### 3️⃣ Apa itu cookies dalam konteks aplikasi web, dan bagaimana Django menggunakan cookies untuk mengelola data sesi pengguna?
-    Cookies dalam aplikasi web adalah file kecil yang disimpan di perangkat pengguna oleh browser, berisi data yang berkaitan dengan sesi atau aktivitas pengguna di sebuah situs. Cookies biasanya digunakan untuk menyimpan informasi yang bisa diambil kembali oleh server untuk mengenali pengguna antara satu permintaan dan yang lain, meskipun HTTP adalah protokol tanpa status (stateless).
+  - #### 2️⃣ Jelaskan cara kerja penghubungan model Product dengan User!
+  Untuk menghubungkan model **Product** dengan model **User** dalam Django, kita bisa menggunakan **ForeignKey** atau **ManyToManyField**, tergantung pada jenis relasi yang diinginkan. **ForeignKey** digunakan jika setiap produk dimiliki oleh satu pengguna, sementara **ManyToManyField** digunakan jika sebuah produk bisa dimiliki oleh banyak pengguna, dan setiap pengguna bisa memiliki banyak produk. Dengan **ForeignKey**, setiap objek di model **Product** akan memiliki referensi atau istilahnya "terhubung" ke satu pengguna.
 
-    Dalam Django, cookies digunakan untuk mengelola data sesi pengguna. Django menggunakan mekanisme yang disebut session framework untuk menyimpan data sesi pengguna di server, sementara hanya ID sesi disimpan dalam cookie di browser pengguna. Saat pengguna mengunjungi situs, Django akan mengirim cookie berisi ID sesi, yang nantinya dikirim kembali oleh browser pada setiap permintaan. Django menggunakan ID ini untuk mengambil data sesi pengguna yang tersimpan di server, seperti status login atau informasi keranjang belanja.
+  Sebagai contoh, dalam model **CatEntry** yang saya buat, setiap entry kucing dihubungkan dengan pengguna melalui **ForeignKey** pada field **user**. Field **id** menggunakan **UUIDField** sebagai primary key yang dihasilkan secara otomatis menggunakan library bawaan `uuid.uuid4`. Ini memberikan identifikasi unik dan membuat aplikasi menjadi lebih aman untuk setiap catatan. 
   
-  - #### 4️⃣ Apakah penggunaan cookies aman secara default dalam pengembangan web, atau apakah ada risiko potensial yang harus diwaspadai?
-    Secara default, penggunaan cookies kurang aman karena terdapat risiko-resiko keamanan yang bisa dieksploitasi seperti serangan **XSS** (Cross-Site Scripting), **session hijacking**, dan **CSRF** (Cross-Site Request Forgery) yang dapat menargetkan data-data sensitif. Penyerang dapat mencuri atau membajak cookies jika aplikasi web rentan, terutama jika cookies tidak diamankan dengan baik atau tidak dienkripsi, memungkinkan akses tanpa izin ke akun pengguna atau sesi mereka.
+  - #### 3️⃣ Apa perbedaan antara authentication dan authorization, apakah yang dilakukan saat pengguna login? Jelaskan bagaimana Django mengimplementasikan kedua konsep tersebut.
+    Dalam django, autentikasi dan otorisasi memiliki beberapa perbedaan mulai dari fungsionalitas dan tujuannya, dimulai dari Authentikasi. Autentikasi adalah proses untuk memverifikasi identitas pengguna. proses ini memastikan bahwa  pengguna yang mencoba mengakses aplikasi adalah pengguna yang terdaftar dan dapat dipercaya. Di Django, autentikasi biasanya melibatkan pengecekan kredensial seperti nama pengguna dan password melalui sistem autentikasi bawaan Django. Contoh umum adalah proses login, dimana pengguna harus memasukkan username dan password yang valid.
 
-    Untuk mengamankan cookies, pengembang perlu menggunakan beberapa fitur seperti **HttpOnly** untuk mencegah akses JavaScript ke cookies, **Secure** untuk memastikan pengiriman cookies hanya melalui koneksi HTTPS, dan **SameSite** untuk melindungi dari serangan lintas situs seperti CSRF. Selain itu, hindari menyimpan informasi sensitif dalam cookies tanpa enkripsi, dan tetapkan waktu kadaluarsa cookies untuk meminimalkan risiko penyalahgunaan setelah sesi selesai. Langkah-langkah ini membantu memastikan penggunaan cookies yang lebih aman dalam aplikasi web.
+    Otorisasi adalah proses untuk menentukan apa yang diizinkan dilakukan oleh pengguna yang sudah terautentikasi. Setelah pengguna berhasil terautentikasi, Django akan menentukan akses atau hak apa yang dimiliki oleh pengguna tersebut, misalnya pengguna boleh melihat halaman admin atau tidak, mengedit data, atau mengakses fitur tertentu.
 
+    Contoh tambahan, Disuatu Perusahaan, kita memiliki user **superuser** yang memiliki akses authorization penuh, ia bisa menetapkan apakah user dari departemen tertentu bisa mengakses laman tertentu seperti admin panel, atau fitur-fitur khusus misalnya sistem informasi departemen lain dalam perusahaan. tentu dengan fitur authorization dan authentication, ini bisa dilakukan dengan mudah.
+  
+  - #### 4️⃣ Bagaimana Django mengingat pengguna yang telah login? Jelaskan kegunaan lain dari cookies dan apakah semua cookies aman digunakan?
+
+    Dalam website berbasis django, Django mengingat pengguna yang telah login menggunakan **session**. Saat pengguna login, Django membuat entri di database yang menyimpan data sesi pengguna, seperti ID pengguna atau status login. Sebuah cookie berisi ID sesi dikirim ke browser pengguna, yang kemudian digunakan oleh server untuk mengidentifikasi sesi saat permintaan berikutnya diterima. Dengan cara ini, Django dapat "mengingat" pengguna antara permintaan, meskipun HTTP adalah protokol tanpa status (stateless).
+    
+    Selain mengelola sesi, di django juga terdapat **cookies** yang juga digunakan untuk berbagai kegunaan seperti menyimpan preferensi pengguna, melacak aktivitas, atau hal sederhana seperti mengingat item di keranjang belanja. Namun, tidak semua cookies aman secara default. Ada risiko seperti serangan XSS (Cross-Site Scripting) yang dapat mencuri cookies, dan CSRF (Cross-Site Request Forgery) yang dapat memanfaatkan cookies untuk melakukan tindakan tidak diizinkan. Oleh karena itu, cookies perlu diamankan lebih lanjut dengan menerapkan beberapa langkah seperti menggunakan flag HttpOnly, Secure, dan SameSite.
+    
   #### ✅ Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
 
 #### ✅  Melakukan add-commit-push ke GitHub.
