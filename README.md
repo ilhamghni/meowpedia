@@ -6,6 +6,129 @@
 ### Link : http://ilham-ghani-meowpedia.pbp.cs.ui.ac.id/ (Status: Online)
 ---
 
+# Tugas 5: Desain Web menggunakan HTML, CSS dan Framework CSS
+
+<details>
+<summary>Click for more detail</summary>
+<br>
+
+## Deskripsi Tugas
+Pada tugas ini, Saya akan mengimplementasikan desain web berdasarkan beberapa hal yang sudah kamu pelajari selama tutorial (CSS, Framework, dsb).
+
+## Checklist Tugas
+#### ✅ Implementasikan fungsi untuk menghapus dan mengedit product.
+Langkah 1: menambah method edit dan delete di `views.py` seperti berikut:
+```py
+def edit_cat(request, id):
+    cat = CatEntry.objects.get(pk = id)
+
+    form = CatEntryForm(request.POST or None, instance=cat)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_home'))
+
+    context = {'form': form}
+    return render(request, "edit_cat.html", context)
+
+def delete_cat(request, id):
+    cat = CatEntry.objects.get(pk = id)
+    cat.delete()
+    return HttpResponseRedirect(reverse('main:show_home'))
+```
+
+Langkah 2: import fungsi baru tersebut pada urls.py, dan tambahkan pada url patterns
+```py 
+from main.views import edit_cat, delete_cat
+urlpatterns = [
+    ...previous code...
+    path('edit-mood/<uuid:id>', edit_cat, name='edit_cat'),
+    path('delete/<uuid:id>', delete_cat, name='delete_cat'),
+]
+```
+Langkah 3: tambahkan button untuk mengakses fungsi tersebut di html
+```html
+    <a href="{% url 'main:edit_cat' cat_entry.pk %}" class="bg-[#FFB200] hover:bg-[#EB5B00] text-white rounded-full p-3 transition duration-300 shadow-lg">
+      Edit Cat
+    </a>
+    <a href="{% url 'main:delete_cat' cat_entry.pk %}" class="bg-black hover:bg-gray-800 text-white rounded-full p-3 transition duration-300 shadow-lg">
+      Delete Cat
+    </a>
+```
+
+#### ✅ Kustomisasi desain pada template HTML yang telah dibuat pada tugas-tugas sebelumnya menggunakan CSS atau CSS framework (seperti Bootstrap, Tailwind, Bulma) dengan ketentuan sebagai berikut:
+- #### ✅ Kustomisasi halaman login, register, dan tambah product semenarik mungkin.
+  Dengan menggunakan Tailwind, saya menambahkan class dan global css yang akan digunakan oleh masing-masing component.
+
+- ####  ✅ Kustomisasi halaman daftar product menjadi lebih menarik dan responsive. Kemudian, perhatikan kondisi berikut:
+
+  - #### ✅ Jika pada aplikasi belum ada product yang tersimpan, halaman daftar product akan menampilkan gambar dan pesan bahwa belum ada product yang terdaftar.
+    Dengan `if`, jika cat_entries belum ada, maka akan menampilkan gambar dan pesan bahwa entries belum ada.
+
+
+  - #### ✅ Jika sudah ada product yang tersimpan, halaman daftar product akan menampilkan detail setiap product dengan menggunakan card (tidak boleh sama persis dengan desain pada Tutorial!).
+    Dengan `else` jika cat_entries sudah ada, tampilkan dalam bentuk card yang sudah dikustomisasi
+
+- #### ✅ Untuk setiap card product, buatlah dua buah button untuk mengedit dan menghapus product pada card tersebut!
+    Tambahkan button yang terhubung melalui `href` dengan `edit_cat` dan `delete_cat`, styling dengan tema keseluruhan
+
+- #### ✅ Buatlah navigation bar (navbar) untuk fitur-fitur pada aplikasi yang responsive terhadap perbedaan ukuran device, khususnya mobile dan desktop.
+    Agar responsive, tambahkan `mobile-menu hidden md:hidden` pada hamburger menu sehingga navbar akan beralih dari tampilan penuh menjadi tampilan yang tersembunyi dibalik tombol, kemudian kustomisasi
+
+#### ✅ Menjawab beberapa pertanyaan berikut pada README.md pada root folder.
+
+  #### 1️⃣ Jika terdapat beberapa CSS selector untuk suatu elemen HTML, jelaskan urutan prioritas pengambilan CSS selector tersebut!
+
+  Dalam CSS, prioritas penerapan aturan ditentukan oleh **specificity**. Aturan dengan prioritas tertinggi adalah **inline CSS** yang diterapkan langsung pada elemen. Di bawahnya, selektor **ID** memiliki prioritas lebih tinggi dibandingkan selektor **kelas**, **pseudo-class**, dan **atribut**. Selektor elemen seperti tag HTML (`h1`, `p`) memiliki prioritas terendah. Jika beberapa aturan memiliki specificity yang sama, aturan yang muncul paling akhir di stylesheet akan berlaku karena sifat **cascade**.
+
+  Selain itu, deklarasi **`!important`** dapat mengesampingkan semua aturan, termasuk yang memiliki specificity lebih tinggi, kecuali jika ada aturan lain yang juga menggunakan `!important` dengan specificity lebih kuat. Urutan umum dari prioritas CSS adalah: **inline styles** > **ID** > **class/pseudo-class/attribute** > **elemen/pseudo-elemen** > **universal selector**.
+
+  1. Inline CSS (1000 point)
+
+  2. ID Selector (100 point)
+
+  3. Class, Pseudo-class, dan Attribute Selectors (10 point)
+
+  4. Type (Tag) Selectors and Pseudo-elements (1 point)
+
+  5. Universal Selector (*), Combinators (+, >, ~), and Inheritance
+
+  Jika dua atau lebih aturan CSS memiliki specificity yang sama, aturan yang muncul terakhir dalam kode akan diterapkan (dikenal sebagai "cascade"). Jadi, jika dua aturan dengan prioritas yang sama diterapkan pada elemen yang sama, aturan yang berada paling bawah dalam stylesheet akan diprioritaskan.
+
+  #### 2️⃣ Mengapa responsive design menjadi konsep yang penting dalam pengembangan aplikasi web? Berikan contoh aplikasi yang sudah dan belum menerapkan responsive design!
+
+  Responsive design menjadi konsep penting dalam pengembangan aplikasi web karena memungkinkan tampilan dan fungsionalitas aplikasi beradaptasi secara optimal pada berbagai perangkat dengan ukuran layar yang berbeda, seperti smartphone, tablet, dan desktop. Dengan semakin banyaknya pengguna yang mengakses aplikasi melalui perangkat mobile, responsive design memastikan bahwa pengalaman pengguna (user experience) tetap baik di semua platform, tanpa harus membuat versi aplikasi yang terpisah untuk setiap perangkat. Selain itu, responsive design juga membantu meningkatkan SEO karena mesin pencari seperti Google memberikan peringkat lebih baik untuk situs yang ramah mobile.
+
+  **YouTube** adalah aplikasi yang telah menerapkan responsive design, di mana tampilan video, menu, dan elemen lainnya dapat beradaptasi dengan berbagai ukuran layar. Sebaliknya, beberapa situs lama atau aplikasi yang tidak menerapkan responsive design, seperti **SIAKNG Universitas Indonesia**, mengalami masalah tampilan dan navigasi yang buruk saat diakses melalui perangkat mobile, dengan teks yang terlalu kecil atau elemen yang tidak terorganisir dengan baik.
+
+  #### 3️⃣ Jelaskan perbedaan antara margin, border, dan padding, serta cara untuk mengimplementasikan ketiga hal tersebut!
+
+    **Margin**, **border**, dan **padding** adalah bagian dari box model dalam CSS yang mengontrol jarak dan tata letak elemen.
+
+  1. **Margin**: Mengatur jarak antara elemen dengan elemen lain di sekitarnya. Margin tidak mempengaruhi ukuran elemen itu sendiri.
+    - Implementasi: `margin: 10px;` (menetapkan jarak luar elemen 10 piksel dari semua sisi).
+    
+  2. **Border**: Adalah garis yang mengelilingi elemen, terletak di antara margin dan padding. Border dapat dikustomisasi dengan warna, ketebalan, dan jenis garis.
+    - Implementasi: `border: 1px solid black;` (menetapkan garis border hitam tipis di sekitar elemen).
+
+  3. **Padding**: Mengatur jarak antara konten elemen dan tepi dalam dari elemen tersebut. Padding menambah ukuran elemen tanpa mempengaruhi jarak antar elemen.
+    - Implementasi: `padding: 15px;` (menetapkan jarak dalam elemen 15 piksel dari semua sisi).
+
+  Ketiga properti ini saling melengkapi untuk mengatur tata letak elemen dengan baik.
+  
+  #### 4️⃣ Jelaskan konsep flex box dan grid layout beserta kegunaannya!
+
+  **Flexbox** dan **Grid Layout** adalah dua sistem tata letak dalam CSS yang membantu mengatur elemen di halaman web. **Flexbox** adalah tata letak satu dimensi, cocok untuk mengatur elemen dalam baris atau kolom secara fleksibel. Ini berguna untuk tata letak sederhana seperti navigasi atau toolbar. Flexbox memungkinkan elemen beradaptasi dengan ukuran kontainer dan mendistribusikan ruang secara efisien dan merata.
+
+  Sementara, **Grid Layout** adalah sistem tata letak dua dimensi yang memungkinkan pengaturan elemen dalam baris dan kolom sekaligus. Grid memberikan kontrol lebih besar untuk tata letak kompleks seperti dashboard atau galeri, memungkinkan pembagian ruang yang presisi. 
+  #### ✅ Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+#### ✅  Melakukan add-commit-push ke GitHub.
+
+</details>
+
+
+---
 
 
 # Tugas 4: Implementasi Autentikasi, Session, dan Cookies pada Django

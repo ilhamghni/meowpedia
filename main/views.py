@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect   
+from django.shortcuts import render, redirect, reverse
 from main.forms import CatEntryForm
 from main.models import CatEntry
 
@@ -40,6 +40,26 @@ def create_cat_entry(request):
 
     context = {'form': form}
     return render(request, "create_cat_entry.html", context)
+
+def edit_cat(request, id):
+    cat = CatEntry.objects.get(pk = id)
+    form = CatEntryForm(request.POST or None, instance=cat)
+
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_home'))
+
+    context = {'form': form}
+    return render(request, "edit_mood.html", context)
+
+def delete_cat(request, id):
+    cat = CatEntry.objects.get(pk = id)
+    # Hapus cat
+    cat.delete()
+    # Kembali ke halaman awal
+    return HttpResponseRedirect(reverse('main:show_home'))
+
 
 def show_xml(request):
     data = CatEntry.objects.all()
