@@ -6,6 +6,57 @@
 ### Link : http://ilham-ghani-meowpedia.pbp.cs.ui.ac.id/ (Status: Online)
 ---
 
+# Tugas 6: JavaScript dan AJAX
+
+<details>
+<summary>Click for more detail</summary>
+<br>
+
+## Deskripsi Tugas
+Pada tugas ini, Saya akan mengimplementasikan AJAX pada aplikasi yang telah saya buat pada tugas sebelumnya.
+
+## Checklist Tugas
+#### ✅ Mengubah tugas 5 yang telah dibuat sebelumnya menjadi menggunakan AJAX..
+
+- #### ✅ AJAX GET
+  - #### ✅ Ubahlah kode cards data mood agar dapat mendukung AJAX GET.
+
+  - #### ✅ Lakukan pengambilan data mood menggunakan AJAX GET. Pastikan bahwa data yang diambil hanyalah data milik pengguna yang logged-in.
+
+- #### ✅ AJAX POST
+  - #### ✅ Buatlah sebuah tombol yang membuka sebuah modal dengan form untuk menambahkan mood.
+  - #### ✅ Buatlah fungsi view baru untuk menambahkan mood baru ke dalam basis data.
+  - #### ✅ Buatlah path /create-ajax/ yang mengarah ke fungsi view yang baru kamu buat.
+  - #### ✅ Hubungkan form yang telah kamu buat di dalam modal kamu ke path /create-ajax/.
+  - #### ✅ Lakukan refresh pada halaman utama secara asinkronus untuk menampilkan daftar mood terbaru tanpa reload halaman utama secara keseluruhan.
+
+
+#### ✅ Menjawab beberapa pertanyaan berikut pada README.md pada root folder.
+
+  #### 1️⃣ Jelaskan manfaat dari penggunaan JavaScript dalam pengembangan aplikasi web!
+  JavaScript memiliki peran penting dalam pengembangan aplikasi web karena kemampuannya untuk membuat situs web dinamis dan interaktif. Berbeda dengan HTML dan CSS yang hanya mengatur tampilan dan struktur halaman, JavaScript memungkinkan pengembang menambahkan logika dan fungsionalitas yang beroperasi langsung di browser pengguna. Hal ini mencakup manipulasi elemen halaman secara real-time, validasi form tanpa perlu memuat ulang halaman, hingga pembuatan animasi. Keunggulan ini tidak hanya meningkatkan user experience, tetapi juga mengurangi beban server, karena banyak tugas yang bisa dijalankan langsung di sisi klien.
+
+  Sebagai contoh, pada aplikasi e-commerce, JavaScript bisa digunakan untuk menghitung total harga belanjaan pengguna secara otomatis saat mereka menambah atau menghapus barang dari keranjang belanja. Alih-alih harus memuat ulang halaman setiap kali perubahan dilakukan, JavaScript memungkinkan pembaruan terjadi secara instan di layar pengguna, meningkatkan efisiensi dan kenyamanan. Contoh lainnya adalah penggunaan JavaScript dalam teknologi AJAX yang memungkinkan aplikasi web untuk mengambil data dari server secara asynchronous, memberikan pengalaman yang lebih responsif dan real-time tanpa mengganggu pengguna.
+
+  #### 2️⃣ Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
+  Fungsi `await` ketika digunakan dengan `fetch()` akan menunggu hingga permintaan HTTP yang dilakukan oleh `fetch()` selesai, sebelum melanjutkan ke baris kode berikutnya. `fetch()` mengembalikan sebuah `Promise`, yang berarti permintaan tersebut tidak langsung mengembalikan hasilnya, melainkan menjanjikan hasil di masa mendatang setelah proses pengambilan data selesai. Dengan menggunakan `await`, kita dapat menulis kode yang terlihat lebih sinkron dan mudah dibaca, karena eksekusi akan dihentikan sementara hingga `fetch()` selesai dan data yang diambil dari server bisa digunakan langsung.
+
+  Jika kita tidak menggunakan `await`, kode akan berjalan secara asynchronous tanpa menunggu hasil dari `fetch()`. Ini berarti baris kode berikutnya akan dijalankan sebelum data dari `fetch()` selesai diambil. Akibatnya, jika kita mencoba mengakses hasil dari `fetch()` tanpa menunggu, kita akan mendapatkan `Promise` alih-alih data yang diharapkan, yang bisa menyebabkan kesalahan dalam pengolahan data. Misalnya, jika Anda ingin mengakses data JSON dari respons tanpa menggunakan `await`, Anda mungkin mencoba memproses data sebelum responsnya benar-benar tersedia, menyebabkan error atau hasil yang tidak diinginkan.
+
+  #### 3️⃣ Mengapa kita perlu menggunakan decorator csrf_exempt pada view yang akan digunakan untuk AJAX POST?
+  Decorator `csrf_exempt` digunakan pada view yang akan menerima permintaan POST dari AJAX untuk mencegah pemeriksaan Cross-Site Request Forgery (CSRF) yang secara default diaktifkan di Django. CSRF adalah serangan di mana penyerang dapat memanfaatkan sesi pengguna yang sudah terautentikasi untuk mengirimkan permintaan yang tidak diinginkan ke server. Namun, saat berinteraksi dengan AJAX, terutama jika permintaan dikirim dari domain yang berbeda atau ketika token CSRF tidak dapat disertakan dengan mudah, menggunakan `csrf_exempt` memungkinkan permintaan POST tersebut untuk diproses tanpa harus melalui validasi token CSRF, sehingga mempermudah komunikasi antara klien dan server dalam situasi tertentu.
+
+  #### 4️⃣  Pada tutorial PBP minggu ini, pembersihan data input pengguna dilakukan di belakang (backend) juga. Mengapa hal tersebut tidak dilakukan di frontend saja?
+  Pembersihan data input pengguna di backend tetap penting meskipun sudah dilakukan di frontend karena beberapa alasan. Pertama, frontend dapat dengan mudah dimanipulasi oleh pengguna yang memiliki niat jahat, sehingga pembersihan data hanya di sisi klien tidak dapat diandalkan sepenuhnya. Kedua, pembersihan di backend memberikan lapisan keamanan tambahan, memastikan bahwa data yang diterima dan diproses oleh server adalah valid dan aman, terlepas dari sumber permintaan. Ketiga, ada kemungkinan pengguna mengakses aplikasi melalui alat atau metode lain, seperti API, yang tidak memiliki validasi frontend. Dengan melakukan pembersihan di backend, aplikasi dapat mencegah serangan seperti injeksi SQL, cross-site scripting (XSS), dan berbagai bentuk eksploitasi lainnya.
+  #### ✅ Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).
+
+#### ✅  Melakukan add-commit-push ke GitHub.
+
+</details>
+
+
+---
+
 # Tugas 5: Desain Web menggunakan HTML, CSS dan Framework CSS
 
 <details>
