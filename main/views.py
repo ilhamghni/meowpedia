@@ -139,3 +139,29 @@ def logout_user(request):
     response = HttpResponseRedirect(reverse('main:login'))
     response.delete_cookie('last_login')
     return response
+
+
+
+from django.views.decorators.csrf import csrf_exempt
+import json
+from django.http import JsonResponse
+
+@csrf_exempt
+def create_cat_flutter(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        new_cat = CatEntry.objects.create(
+            user=request.user,
+            name=data["name"],
+            price=data["price"],
+            age=data["age"],
+            description=data["description"],
+            species=data["species"],
+            colour=data["colour"]
+        )
+
+        new_cat.save()
+
+        return JsonResponse({"status": "success"}, status=200)
+    else:
+        return JsonResponse({"status": "error"}, status=401)
